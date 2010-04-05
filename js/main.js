@@ -76,7 +76,7 @@ function show_search_results(data) {
                 })
                 .html("more details...");
                 
-            result_item = $("<li>")
+            result_item = $("<ul>")
             .attr("class", 'g')
             .append(device_div)
             .append(switcher)                                        
