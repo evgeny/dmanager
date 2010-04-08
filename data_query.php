@@ -20,7 +20,6 @@ if ($type == 'device_search')
          "WHERE MATCH (name, description) ".
 		 "AGAINST ( ? IN BOOLEAN MODE )";
 
-    $res = array(); 
     if ($stmt = $db->prepare($q)) {
         $stmt->bind_param("s", $device_data);
         $stmt->execute();

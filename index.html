@@ -21,11 +21,14 @@
             <div id="bd"> 
             	<div class="yui-g">
                     <div class="yui-u first" id="control_box">
-                        <div id="text_query_container">             
+                        <div id="search_container">             
                             <h4>Enter name of device or of required method:</h4>
                             <input type="text" size="40" value="" id="input_string" class="search_panel" />
 							<input type="button" value="Search" id="search_button" class="search_panel"/>
-                            <input type="image" src="img/help.png" width="24" height="24" id="help_button" class="search_panel"/>
+                        </div>
+                        <div id="buttons_container">
+                            <input type="image" src="img/login.png" width="24" height="24" id="login_button" title="Log In"/>
+                            <input type="image" src="img/help.png" width="24" height="24" id="help_button" title="Help"/>
                         </div>
                     </div> 
 					<div class="yui-u">				
@@ -51,10 +54,20 @@
                         <p>"spectrum microscope"</p>
 	
                     </div>
+                    <div id="login-form">
+                        <h3>Member Login</h3><br>
+                        <p>Username:
+                            <input name="username" type="text" id="username" />
+                        </p>
+                        <p>Password:
+                            <input name="password" type="password" id="password" />
+                        </p>
+                        <input type="submit" name="Submit" value="Login" />
+                    </div>
                 </div>
             </div>
             <div id="ft">
-                <p>Made for fun by EZ</p>
+                <p>Made for fun by EZ&trade;</p>
             </div> 
 		</div>
     </body>
