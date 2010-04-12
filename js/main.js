@@ -1,3 +1,4 @@
+var loged = false;
 function utf8_decode(str_data) {
     var tmp_arr = [], i = 0, ac = 0, c1 = 0, c2 = 0, c3 = 0;
     
@@ -115,8 +116,27 @@ $(document).ready(function() {
     });
     $("#login_button").click(function (e) {
         e.preventDefault();
-        $('#login-form').modal();
-        //window.location = "login.php";
+        if (loged == false) {
+            $('#login-form').modal();
+        } else {
+            $("#add_button").hide();
+            loged = false;
+            $(this).attr("src", "img/login.png")
+                   .attr("title", "Log Out");
+        }
+    });
+    $("#send_button").click(function (e) {
+    var username = $("#username").val(),
+        password = $("#password").val();
+        $.post("checklogin.php", {type: "checklogin", username: username, password: password}, function(data) {
+            if (data == 1) {
+                $("#add_button").show();
+                loged = true;
+                $("#login_button").attr("src", "img/logout.png")
+                                .attr("title", "Log Out");
+            }
+        });
+        $.modal.close();
     });
 });
 

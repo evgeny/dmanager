@@ -111,6 +111,10 @@ h3 {
     padding:3px 4px;
 }
 
+#add_button {
+    display: none;
+}
+
 #buttons_container {
     position:absolute;
     top:10px;
