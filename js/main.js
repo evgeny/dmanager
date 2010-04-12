@@ -38,13 +38,15 @@ function show_search_results(data) {
             description = val.description,
             location = val.location;
             person = val.title + " " + val.first_name + " " + val.last_name;
-            
+            delete_icon = $('<input type="image" src="img/delete.png" width="24" height="24" id="delete-device-icon">')
+                .css("display", "none");
             device_div = $("<div>")
                 .attr("class", "device")
                 .append(
-                    $("<h3>")
+                    $("<h3 id='device-name'>")
                     .html(name)
                 )
+                .append(delete_icon)
                 .append(
                     $("<p>")
                     .html("<b>Description: </b>" +
@@ -74,6 +76,8 @@ function show_search_results(data) {
                 );
              
             details_div.hide();
+            if (loged) delete_icon.show();
+            else delete_icon.hide();
             switcher = $("<button>")
                 .attr("class", "switcher")
                 .click(function () {
@@ -115,6 +119,7 @@ $(document).ready(function() {
         $('#basic-modal-content').modal();
     });
     $("#login_button").click(function (e) {
+        $("#result_list").empty();
         e.preventDefault();
         if (loged == false) {
             $('#login-form').modal();
@@ -134,9 +139,15 @@ $(document).ready(function() {
                 loged = true;
                 $("#login_button").attr("src", "img/logout.png")
                                 .attr("title", "Log Out");
+                $.modal.close();
+            } else {
+                $('#login-form').append($("<h4>Wrong name or password</h4>").css("color", "red"));
             }
         });
-        $.modal.close();
+    });
+    $("#add_button").click(function (e) {
+        e.preventDefault();
+        $("#new-device-form").modal();
     });
 });
 
