@@ -34,7 +34,38 @@ if ($type == 'device_search')
     }
     //print_r($res);
     echo json_encode($res);
-} 
+} else if($type == 'add_device') {
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
+    $location = $_REQUEST['location'];
+    $result = 0;
+	$q = "INSERT INTO devices (name, description, location) VALUES (?,?,?)";
+
+    if ($stmt = $db->prepare($q)) {
+        $stmt->bind_param("sss", $name, $description, $location);
+        $stmt->execute();
+        $result = $stmt->affected_rows;
+        $stmt->close();
+    }
+    echo $result;
+} else if($type == 'get_persons') {
+	$res = array();
+	$q = "SELECT title, first_name, last_name, address, phone, email FROM persons";
+
+    if ($stmt = $db->prepare($q)) {
+        $stmt->execute();
+        $stmt->bind_result($title, $first_name, $last_name, $address, $phone, $email);
+            
+        while ($stmt->fetch()) {
+            $res[] = array("title" => $title, "first_name" => $first_name, "last_name" => $last_name, 
+            "address" => $address, "phone" => $phone, "email" => $email);
+        }
+        $stmt->close();
+    }
+    //print_r($res);
+    echo json_encode($res);
+}
+
 
 function get_search_string($str) {
     $words = array();

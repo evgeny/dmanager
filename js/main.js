@@ -121,7 +121,7 @@ $(document).ready(function() {
     $("#login_button").click(function (e) {
         $("#result_list").empty();
         e.preventDefault();
-        if (loged == false) {
+        if (!loged) {
             $('#login-form').modal();
         } else {
             $("#add_button").hide();
@@ -147,7 +147,15 @@ $(document).ready(function() {
     });
     $("#add_button").click(function (e) {
         e.preventDefault();
-        $("#new-device-form").modal();
+        //$("#new-device-form").modal();
+        document.location = "add.php";
+    });
+    $("#add-device-button").click(function (e) {
+        var device_name = $("#device-name").val(),
+            device_description = $("#device-description").val();
+	    $.post("data_query.php", {type: "add_device", name: device_name, description: device_description}, function (data) {
+            alert(data);
+	    });
     });
 });
 

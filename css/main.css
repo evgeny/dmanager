@@ -122,5 +122,35 @@ h3 {
 }
 
 #delete-device-icon {
-       float: right;
+    float: right;
+}
+
+#add-device-button {
+    float: left;
+    margin-right:10px;
+}
+
+/* css for add.php*/
+option.new-person-option { /* Text and background colour, blue on light gray */
+ color:#00f;
+ background-color:#ddd;
+ }
+option[selected] { /* Text colour and font weight, red and bold */
+    color:#f00;
+    font-weight:bold;
+}
+#persons {
+    margin-top: 30px;
+}
+
+#new-person-form {
+    margin-top:20px;
+}
+
+#new-person-form input {
+    float:right;
+}
+
+#title {
+    width:5em;
 }
