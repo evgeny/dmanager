@@ -7,8 +7,6 @@ ini_set('display_errors', true);
 error_reporting(E_ALL);
 
 $type = $_POST['type'];
-//$type = "device_search";
-//$device_data = "microscope";
 
 if ($type == 'device_search') 
 {
@@ -32,39 +30,73 @@ if ($type == 'device_search')
         }
         $stmt->close();
     }
-    //print_r($res);
     echo json_encode($res);
 } else if($type == 'add_device') {
-    $name = $_REQUEST['name'];
-    $description = $_REQUEST['description'];
-    $location = $_REQUEST['location'];
-    $result = 0;
-	$q = "INSERT INTO devices (name, description, location) VALUES (?,?,?)";
+    $name = $_POST['device-name'];
+    $description = $_POST['device-description'];
+    $location = $_POST['device-location'];
 
-    if ($stmt = $db->prepare($q)) {
-        $stmt->bind_param("sss", $name, $description, $location);
-        $stmt->execute();
-        $result = $stmt->affected_rows;
-        $stmt->close();
+    $id = -1;
+    $result = 0;
+    
+    if (isset($_POST['person_id'])) {
+        $person_id = $_POST['person_id'];
+    } else {
+        $person_title = $_POST['person-title'];
+        $person_first_name = $_POST['person-first-name'];
+        $person_last_name = $_POST['person-last-name'];
+        $person_address = $_POST['person-address'];
+        $person_phone = $_POST['person-phone'];
+        $person_email = $_POST['person-email'];
+        
+        $q = "INSERT INTO persons (title, first_name, last_name, address, phone, email) VALUES (?,?,?,?,?,?)";
+
+        if ($stmt = $db->prepare($q)) {
+            $stmt->bind_param("ssssss", $person_title, $person_first_name, $person_last_name, $person_address, $person_phone, $person_email);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            $stmt->close();
+        }
+        
+        $q = "SELECT id FROM persons WHERE last_name=? AND first_name=? LIMIT 1";
+        
+        if ($stmt = $db->prepare($q)) {
+            $stmt->bind_param("ss", $person_last_name, $person_first_name);
+            $stmt->execute();
+            $stmt->bind_result($id);
+            while ($stmt->fetch()) {
+                $person_id = $id;
+            }
+            $stmt->close();
+        }
     }
+    
+    $q = "INSERT INTO devices (name, description, location, person_id) VALUES (?,?,?,?)";
+
+        if ($stmt = $db->prepare($q)) {
+            $stmt->bind_param("ssss", $name, $description, $location, $person_id);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            $stmt->close();
+        }
+	
     echo $result;
 } else if($type == 'get_persons') {
 	$res = array();
-	$q = "SELECT title, first_name, last_name, address, phone, email FROM persons";
+	$q = "SELECT id, title, first_name, last_name, address, phone, email FROM persons";
 
     if ($stmt = $db->prepare($q)) {
         $stmt->execute();
-        $stmt->bind_result($title, $first_name, $last_name, $address, $phone, $email);
+        $stmt->bind_result($id, $title, $first_name, $last_name, $address, $phone, $email);
             
         while ($stmt->fetch()) {
-            $res[] = array("title" => $title, "first_name" => $first_name, "last_name" => $last_name, 
-            "address" => $address, "phone" => $phone, "email" => $email);
+            $res[] = array("id" => $id, "title" => $title, "first_name" => $first_name, 
+            "last_name" => $last_name, "address" => $address, "phone" => $phone, "email" => $email);
         }
         $stmt->close();
     }
-    //print_r($res);
     echo json_encode($res);
-}
+} 
 
 
 function get_search_string($str) {
