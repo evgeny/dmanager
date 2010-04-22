@@ -17,9 +17,15 @@ $(document).ready(function() {
     });
     $("#save-device-and-person").click(function(e) {
         if (person_id == "0") {
-            $.post("data_query.php", "type=add_device&" + $("#device-form").serialize() + "&" + $("#new-person-form").serialize());
+            $.post("data_query.php", "type=add_device&" + $("#device-form").serialize() + "&" + $("#new-person-form").serialize(),
+            function(data){
+                    document.location = "index.html";
+            });
         } else {
-            $.post("data_query.php", "type=add_device&" + $("#device-form").serialize() + "&person_id=" + person_id);
+            $.post("data_query.php", "type=add_device&" + $("#device-form").serialize() + "&person_id=" + person_id,
+                function(data){
+                    document.location = "index.html";
+                });
         }
     });
 });

@@ -96,7 +96,15 @@ if ($type == 'device_search')
         $stmt->close();
     }
     echo json_encode($res);
-} 
+} else if($type == 'checklogin') {
+    @session_start();
+    if(isset($_SESSION['username'])) echo $_SESSION['username'];
+    else echo 0;
+} else if($type == 'log_out') {
+    @session_start();
+    @session_unset();
+    @session_destroy();
+}
 
 
 function get_search_string($str) {

@@ -1,4 +1,6 @@
-var loged = false;
+var login = false;
+var user = "";
+
 function utf8_decode(str_data) {
     var tmp_arr = [], i = 0, ac = 0, c1 = 0, c2 = 0, c3 = 0;
     
@@ -76,7 +78,7 @@ function show_search_results(data) {
                 );
              
             details_div.hide();
-            if (loged) delete_icon.show();
+            if (log_in) delete_icon.show();
             else delete_icon.hide();
             switcher = $("<button>")
                 .attr("class", "switcher")
@@ -99,7 +101,28 @@ function show_search_results(data) {
     }
 }
 
+function log_in(username) {
+    $("#add_button").show();
+    login = true;
+    user = username;
+    $("#login_button").attr("src", "img/logout.png")
+                      .attr("title", "Log Out");
+}
+
+function log_out() {
+    $.post("data_query.php", {type: "log_out"});
+    $("#add_button").hide();
+    login = false;
+    $(this).attr("src", "img/login.png")
+           .attr("title", "Log Out");        
+}
+
 $(document).ready(function() {
+    $.post("data_query.php", {type: "checklogin"}, function(data) {
+        if (data != '0') {
+            log_in(data);
+        }
+    });
     $("#search_button").click(function() {
         var device_data = $("#input_string").val();
 	    $.post("data_query.php", {type: "device_search", device_data: device_data}, function (data) {
@@ -121,24 +144,18 @@ $(document).ready(function() {
     $("#login_button").click(function (e) {
         $("#result_list").empty();
         e.preventDefault();
-        if (!loged) {
+        if (!login) {
             $('#login-form').modal();
         } else {
-            $("#add_button").hide();
-            loged = false;
-            $(this).attr("src", "img/login.png")
-                   .attr("title", "Log Out");
+           log_out();
         }
     });
     $("#send_button").click(function (e) {
     var username = $("#username").val(),
         password = $("#password").val();
         $.post("checklogin.php", {type: "checklogin", username: username, password: password}, function(data) {
-            if (data == 1) {
-                $("#add_button").show();
-                loged = true;
-                $("#login_button").attr("src", "img/logout.png")
-                                .attr("title", "Log Out");
+            if (data != 0) {
+                log_in(data);
                 $.modal.close();
             } else {
                 $('#login-form').append($("<h4>Wrong name or password</h4>").css("color", "red"));
