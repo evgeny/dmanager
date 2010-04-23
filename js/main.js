@@ -38,9 +38,12 @@ function show_search_results(data) {
         $(data).each(function (i, val) {
             var name = val.name,
             description = val.description,
-            location = val.location;
+            location = val.location,
+            id = val.id;
             person = val.title + " " + val.first_name + " " + val.last_name;
-            delete_icon = $('<input type="image" src="img/delete.png" width="24" height="24" id="delete-device-icon">')
+            delete_icon = $('<input type="image" width="24" height="24" class="delete-device-icon">')
+                .attr("src", "img/delete.png")
+                .attr("id", id)
                 .css("display", "none");
             device_div = $("<div>")
                 .attr("class", "device")
@@ -78,7 +81,7 @@ function show_search_results(data) {
                 );
              
             details_div.hide();
-            if (log_in) delete_icon.show();
+            if (login) delete_icon.show();
             else delete_icon.hide();
             switcher = $("<button>")
                 .attr("class", "switcher")
@@ -99,12 +102,18 @@ function show_search_results(data) {
         $("#result_list").show();
         $('#ssb').show();
     }
+    $(".delete-device-icon").click(function (e) {
+        var device_id = $(this).attr("id");
+	    $.post("data_query.php", {type: "remove_device", id: device_id});
+        search_device();
+    });
 }
 
 function log_in(username) {
     $("#add_button").show();
     login = true;
     user = username;
+    $(".delete-device-icon").show();
     $("#login_button").attr("src", "img/logout.png")
                       .attr("title", "Log Out");
 }
@@ -113,8 +122,16 @@ function log_out() {
     $.post("data_query.php", {type: "log_out"});
     $("#add_button").hide();
     login = false;
+    $(".delete-device-icon").hide();
     $(this).attr("src", "img/login.png")
            .attr("title", "Log Out");        
+}
+
+function search_device() {
+    var device_data = $("#input_string").val();
+    $.post("data_query.php", {type: "device_search", device_data: device_data}, function (data) {
+        show_search_results(data);
+    }, "json");
 }
 
 $(document).ready(function() {
@@ -124,17 +141,11 @@ $(document).ready(function() {
         }
     });
     $("#search_button").click(function() {
-        var device_data = $("#input_string").val();
-	    $.post("data_query.php", {type: "device_search", device_data: device_data}, function (data) {
-            show_search_results(data);
-	    }, "json");
+        search_device();
    });
    $('#input_string').keyup(function(e) {
         if(e.keyCode == 13) {
-            var device_data = $("#input_string").val();
-            $.post("data_query.php", {type: "device_search", device_data: device_data}, function (data) {
-                show_search_results(data);
-            }, "json");
+            search_device();
         }
     });
     $("#help_button").click(function (e) {
@@ -147,7 +158,7 @@ $(document).ready(function() {
         if (!login) {
             $('#login-form').modal();
         } else {
-           log_out();
+            log_out();
         }
     });
     $("#send_button").click(function (e) {
@@ -164,15 +175,7 @@ $(document).ready(function() {
     });
     $("#add_button").click(function (e) {
         e.preventDefault();
-        //$("#new-device-form").modal();
         document.location = "add.php";
-    });
-    $("#add-device-button").click(function (e) {
-        var device_name = $("#device-name").val(),
-            device_description = $("#device-description").val();
-	    $.post("data_query.php", {type: "add_device", name: device_name, description: device_description}, function (data) {
-            alert(data);
-	    });
     });
 });
 

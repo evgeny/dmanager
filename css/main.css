@@ -38,7 +38,7 @@ h3 {
     margin:0;
 }
 
-#basic-modal-content, #login-form, #new-device-form {
+#basic-modal-content, #login-form {
     display:none;
 }
 
@@ -76,7 +76,7 @@ h3 {
     padding:4px 6px 6px;
 }
   
-#simplemodal-container #basic-modal-content, #simplemodal-container #login-form, #simplemodal-container #new-device-form {
+#simplemodal-container #basic-modal-content, #simplemodal-container #login-form {
     padding:8px;
 }
 
@@ -121,7 +121,7 @@ h3 {
     right:10px;
 }
 
-#delete-device-icon {
+.delete-device-icon {
     float: right;
 }
 
