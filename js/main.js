@@ -113,6 +113,8 @@ function log_in(username) {
     $("#add_button").show();
     login = true;
     user = username;
+    $("#welcome").text("Welcome, " + user);
+    $("#welcome").show();
     $(".delete-device-icon").show();
     $("#login_button").attr("src", "img/logout.png")
                       .attr("title", "Log Out");
@@ -122,9 +124,13 @@ function log_out() {
     $.post("data_query.php", {type: "log_out"});
     $("#add_button").hide();
     login = false;
+    $("#welcome").hide();
     $(".delete-device-icon").hide();
-    $(this).attr("src", "img/login.png")
+    $("#login_button").attr("src", "img/login.png")
            .attr("title", "Log Out");        
+    if (document.title === "Add Device") {
+        document.location = "index.html";
+    }
 }
 
 function search_device() {
@@ -169,7 +175,7 @@ $(document).ready(function() {
                 log_in(data);
                 $.modal.close();
             } else {
-                $('#login-form').append($("<h4>Wrong name or password</h4>").css("color", "red"));
+                $('#wrong_login').show();
             }
         });
     });

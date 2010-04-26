@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Device Explorer</title>
+        <title>Add Device</title>
         
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css"> 
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/base/base-min.css"> 
@@ -25,6 +25,11 @@
             <div id="bd"> 
             	<div class="yui-g">
                     <div class="yui-u first" id="new_device">
+                        <div id="buttons_container">
+                            <b id="welcome">Welcome</b>
+                            <input type="image" src="img/login.png" width="24" height="24" id="login_button" title="Log In"/>
+                            <input type="image" src="img/help.png" width="24" height="24" id="help_button" title="Help"/>
+                        </div>
                         <h3>New Device</h3><br>                       
                         <form id="device-form">
                             <p>Name:</p>
@@ -52,6 +57,11 @@
                             <p>Phone:<input type="text" name="person-phone" /></p>
                             <p>E-Mail:<input type="text" name="person-email" /></p>                        
                         </form>
+                    </div>
+                    <div id="basic-modal-content">
+                        <h3>How to add new device?</h3>
+                        <p>Type</p>
+	
                     </div>
                 </div>
             </div>
