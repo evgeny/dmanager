@@ -39,11 +39,18 @@ function show_search_results(data) {
             var name = val.name,
             description = val.description,
             location = val.location,
-            id = val.id;
+            id = val.id,
+            address = (val.address!="")?("address: " + val.address):" ",
+            phone = (val.phone!="")?("tel.: " + val.phone):" ",
+            email = (val.email!="")?("e-mail: " + val.email):" ",
             person = val.title + " " + val.first_name + " " + val.last_name;
             delete_icon = $('<input type="image" width="24" height="24" class="delete-device-icon">')
                 .attr("src", "img/delete.png")
                 .attr("id", id)
+                .css("display", "none");
+            edit_icon = $('<input type="image" width="24" height="24" class="edit-device-icon">')
+                .attr("src", "img/edit.png")
+                //.attr("id", id)
                 .css("display", "none");
             device_div = $("<div>")
                 .attr("class", "device")
@@ -52,13 +59,13 @@ function show_search_results(data) {
                     .html(name)
                 )
                 .append(delete_icon)
+                .append(edit_icon)
                 .append(
-                    $("<p>")
+                    $("<p class='device-description'>")
                     .html("<b>Description: </b>" +
                         utf8_decode(description) 
                     )
-                );
-                
+                );     
             details_div = $("<div>")
                 .attr("id", "device" + i)
                 .append(
@@ -72,17 +79,22 @@ function show_search_results(data) {
                     .html("<b>Person in charge: </b>" +
                         person +
                         "<br>" +
-                        val.address +
+                        address +
                         "<br>" +
-                        "tel.: " + val.phone +
+                        phone +
                         " " +
-                        "e-mail: " + val.email
+                        email
                     )
                 );
              
             details_div.hide();
-            if (login) delete_icon.show();
-            else delete_icon.hide();
+            if (login) {
+                delete_icon.show();
+                edit_icon.show();
+            } else {
+                delete_icon.hide();
+                edit_icon.hide();
+            }
             switcher = $("<button>")
                 .attr("class", "switcher")
                 .click(function () {

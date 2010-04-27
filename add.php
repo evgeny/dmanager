@@ -31,15 +31,16 @@
                             <input type="image" src="img/help.png" width="24" height="24" id="help_button" title="Help"/>
                         </div>
                         <h3>New Device</h3><br>                       
-                        <form id="device-form">
+                        <form id="new-device-form">
                             <p>Name:</p>
-                            <input type="text" name="device-name" />                        
+                            <input type="text" name="device-name" class="requiered-input"/>                        
                             <p>Device description:</p>
-                            <textarea name="device-description"  rows=6 cols=60></textarea>                        
+                            <textarea name="device-description" class="requiered-input" rows=6 cols=60></textarea>                        
                             <p>Device location:</p>
-                            <textarea name="device-location"  rows=3 cols=60></textarea>                        
-                            <input type="button" value="Add" id="save-device-and-person"/>
-                            <input type="button" value="Cancel"/>
+                            <textarea name="device-location"  class="requiered-input" rows=3 cols=60></textarea>  
+                            <br>
+                            <input type="button" value="Add" id="save-device-button"/>
+                            <input type="button" value="Cancel" id="cancel-device-button"/>
                         </form>
                     </div> 
 					<div class="yui-u" id="person-in-charge">				

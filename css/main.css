@@ -132,8 +132,13 @@ h3 {
     right:10px;
 }
 
-.delete-device-icon {
+.delete-device-icon, .edit-device-icon {
+    margin-left:5px;
     float: right;
+}
+
+.device-description {
+    width: 90%;
 }
 
 #add-device-button {
@@ -142,14 +147,6 @@ h3 {
 }
 
 /* css for add.php*/
-option.new-person-option { /* Text and background colour, blue on light gray */
- color:#00f;
- background-color:#ddd;
- }
-option[selected] { /* Text colour and font weight, red and bold */
-    color:#f00;
-    font-weight:bold;
-}
 #persons {
     margin-top: 30px;
 }
@@ -160,6 +157,11 @@ option[selected] { /* Text colour and font weight, red and bold */
 
 #new-person-form input {
     float:right;
+}
+
+#new-device-form {
+    margin-top: 10px;
+    float:left;
 }
 
 #title {
