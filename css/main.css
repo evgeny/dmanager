@@ -138,7 +138,11 @@ h3 {
 }
 
 .device-description {
-    width: 90%;
+    width: 80%;
+    background-color:#FFF8C6;
+    border-style:solid;
+    
+    
 }
 
 #add-device-button {

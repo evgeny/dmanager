@@ -71,7 +71,19 @@ if ($type == 'device_search')
         }
     }
     
-    $q = "INSERT INTO devices (name, description, location, person_id) VALUES (?,?,?,?)";
+     if (isset($_POST['device_id'])) {
+        $q = "UPDATE devices SET name=?, description=?, location=?, person_id=? WHERE id=?;";
+
+        if ($stmt = $db->prepare($q)) {
+            $stmt->bind_param("sssss", $name, $description, $location, $person_id, $_POST['device_id']);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            $stmt->close();
+        }
+	
+        echo $result;
+    } else {
+        $q = "INSERT INTO devices (name, description, location, person_id) VALUES (?,?,?,?)";
 
         if ($stmt = $db->prepare($q)) {
             $stmt->bind_param("ssss", $name, $description, $location, $person_id);
@@ -80,7 +92,8 @@ if ($type == 'device_search')
             $stmt->close();
         }
 	
-    echo $result;
+        echo $result;
+    }
 } else if ($type == 'remove_device') {
     $q = "DELETE FROM devices where id=?";
     $result = 0;
@@ -93,6 +106,23 @@ if ($type == 'device_search')
     }
 	
     echo $result;
+} else if ($type == 'edit_device') {
+
+    $res = array();
+	$q = "SELECT * FROM devices WHERE id = ? LIMIT 1";
+
+    if ($stmt = $db->prepare($q)) {
+        $stmt->bind_param("s", $_POST['id']);
+        $stmt->execute();
+        $stmt->bind_result($id, $name, $description, $location, $person_id);
+            
+        while ($stmt->fetch()) {
+            $res = array("id" => $id, "name" => $name, "description" => utf8_encode($description), 
+            "location" => $location, "person_id" => $person_id);
+        }
+        $stmt->close();
+    }
+    echo json_encode($res);
     
 } else if($type == 'get_persons') {
 	$res = array();

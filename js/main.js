@@ -50,7 +50,7 @@ function show_search_results(data) {
                 .css("display", "none");
             edit_icon = $('<input type="image" width="24" height="24" class="edit-device-icon">')
                 .attr("src", "img/edit.png")
-                //.attr("id", id)
+                .attr("id", id)
                 .css("display", "none");
             device_div = $("<div>")
                 .attr("class", "device")
@@ -60,11 +60,12 @@ function show_search_results(data) {
                 )
                 .append(delete_icon)
                 .append(edit_icon)
+                .append("<b>Description: </b><br>")
                 .append(
-                    $("<p class='device-description'>")
-                    .html("<b>Description: </b>" +
-                        utf8_decode(description) 
-                    )
+                    $("<textarea class='device-description'>"+utf8_decode(description)+"</textarea>" )
+                        .attr("rows", "6")
+                        .attr("cols", "60")
+                        .attr("readonly", "true")
                 );     
             details_div = $("<div>")
                 .attr("id", "device" + i)
@@ -119,6 +120,12 @@ function show_search_results(data) {
 	    $.post("data_query.php", {type: "remove_device", id: device_id});
         search_device();
     });
+    $(".edit-device-icon").click(function (e) {
+        var device_id = $(this).attr("id");
+	    $.post("data_query.php", {type: "edit_device", id: device_id}, function (data) {
+            $("body").load("add.php", data);
+        },"json");
+    });
 }
 
 function log_in(username) {
@@ -133,16 +140,19 @@ function log_in(username) {
 }
 
 function log_out() {
-    $.post("data_query.php", {type: "log_out"});
-    $("#add_button").hide();
-    login = false;
-    $("#welcome").hide();
-    $(".delete-device-icon").hide();
-    $("#login_button").attr("src", "img/login.png")
+    $.post("data_query.php", {type: "log_out"},function(data) {
+        $("#add_button").hide();
+        login = false;
+        $("#welcome").hide();
+        $(".delete-device-icon").hide();
+        $("#login_button").attr("src", "img/login.png")
            .attr("title", "Log Out");        
-    if (document.title === "Add Device") {
-        document.location = "index.html";
-    }
+        if (document.title === "Add Device") {
+            document.location = "index.html";
+        } else {
+            document.location.reload();
+        }
+    });
 }
 
 function search_device() {

@@ -32,12 +32,13 @@
                         </div>
                         <h3>New Device</h3><br>                       
                         <form id="new-device-form">
+                            <input type="hidden" id="device-id" value=<?php echo $_POST['id']?>></input>
                             <p>Name:</p>
-                            <input type="text" name="device-name" class="requiered-input"/>                        
+                            <input type="text" name="device-name" class="requiered-input" value=<?php echo $_POST['name']?>></input>                        
                             <p>Device description:</p>
-                            <textarea name="device-description" class="requiered-input" rows=6 cols=60></textarea>                        
+                            <textarea name="device-description" class="requiered-input" rows=6 cols=60><?php echo $_POST['description']?></textarea>                        
                             <p>Device location:</p>
-                            <textarea name="device-location"  class="requiered-input" rows=3 cols=60></textarea>  
+                            <textarea name="device-location"  class="requiered-input" rows=3 cols=60><?php echo $_POST['location']?></textarea>  
                             <br>
                             <input type="button" value="Add" id="save-device-button"/>
                             <input type="button" value="Cancel" id="cancel-device-button"/>
@@ -45,18 +46,19 @@
                     </div> 
 					<div class="yui-u" id="person-in-charge">				
                         <h3>Person in charge</h3>
+                        <input type="hidden" id="person-id" value=<?php echo $_POST['person_id']?>></input>
                         <p>Select Person:
                             <select id="persons">
                                 <option id="0">&lt;&lt;New Person&gt;&gt;</option>
                             </select>
                         </p>
                         <form id="new-person-form">
-                            <p>Title:<input type="text" name="person-title" /></p>
-                            <p>First Name:<input type="text" name="person-first-name" /></p>
-                            <p>Last Name:<input type="text" name="person-last-name" /></p>
-                            <p>Address:<input type="text" name="person-address" /></p>
-                            <p>Phone:<input type="text" name="person-phone" /></p>
-                            <p>E-Mail:<input type="text" name="person-email" /></p>                        
+                            <p>Title:<input type="text" name="person-title" value=<?php echo $_POST['title']?>></input></p>
+                            <p>First Name:<input type="text" name="person-first-name" value=<?php echo $_POST['first_name']?>></input></p>
+                            <p>Last Name:<input type="text" name="person-last-name" value=<?php echo $_POST['last_name']?>></input></p>
+                            <p>Address:<input type="text" name="person-address" value=<?php echo $_POST['address']?>></input></p>
+                            <p>Phone:<input type="text" name="person-phone" value=<?php echo $_POST['phone']?>></value></p>
+                            <p>E-Mail:<input type="text" name="person-email" value=<?php echo $_POST['email']?>></input></p>                        
                         </form>
                     </div>
                     <div id="basic-modal-content">
