@@ -82,18 +82,18 @@ h3 {
 
 .search_panel {
     float:left;
+    border-color: green;
+    border-style:solid;
+    font:18px Helvetica,Arial,Sans-serif;
+    outline-width:0;
 }
 
 #input_string {
     -moz-border-radius-topleft:5px;
     -moz-border-radius-bottomleft:5px;
-    background:none repeat scroll 0 0 #FFFFFF;
-    border-color:green;
-    border-style:solid;
-    border-width:1px 0px 1px 1px;
-    font:18px Helvetica,Arial,Sans-serif;
-    margin:0;
-    outline-width:0;
+    background:none repeat scroll 0 0 #FFFFFF;    
+    border-width:1px 0px 1px 1px;    
+    margin:0;    
     padding:4px 5px;
     width:330px;
 }
@@ -101,13 +101,17 @@ h3 {
 #search_button {
     -moz-border-radius-topright:5px;
     -moz-border-radius-bottomright:5px;
+    background:none repeat scroll 0 0 #A0C544;    
+    border-width:1px;    
+    margin:0;    
+    padding:3px 4px;
+}
+
+#show_all_button {
+    -moz-border-radius:5px;
     background:none repeat scroll 0 0 #A0C544;
-    border-color: green;
-    border-style:solid;
-    border-width:1px;
-    font:18px Helvetica,Arial,Sans-serif;
-    margin:0;
-    outline-width:0;
+    border-width:1px;    
+    margin-left:5px;
     padding:3px 4px;
 }
 

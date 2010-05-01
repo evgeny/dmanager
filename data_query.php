@@ -31,6 +31,24 @@ if ($type == 'device_search')
         $stmt->close();
     }
     echo json_encode($res);
+} else if ($type == 'get_all_devices') {
+    
+	$res = array();
+	$q = "SELECT devices.id as id, name, description, location, title, first_name, last_name, address, phone, email ".
+         "FROM devices JOIN persons ON persons.id = devices.person_id ";
+
+    if ($stmt = $db->prepare($q)) {
+        $stmt->execute();
+        $stmt->bind_result($id, $name, $description, $location, $title, $first_name, $last_name, $address, $phone, $email);
+            
+        while ($stmt->fetch()) {
+            $res[] = array("id" => $id, "name" => $name, "description" => utf8_encode($description), "location" => $location,
+            "title" => $title, "first_name" => $first_name, "last_name" => $last_name, "address" => $address,
+            "phone" => $phone, "email" => $email);
+        }
+        $stmt->close();
+    }
+    echo json_encode($res);
 } else if($type == 'add_device') {
     $name = $_POST['device-name'];
     $description = $_POST['device-description'];

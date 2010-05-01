@@ -63,8 +63,8 @@ function show_search_results(data) {
                 .append("<b>Description: </b><br>")
                 .append(
                     $("<textarea class='device-description'>"+utf8_decode(description)+"</textarea>" )
-                        .attr("rows", "6")
-                        .attr("cols", "60")
+                        //.attr("rows", "6")
+                        //.attr("cols", "60")
                         .attr("readonly", "true")
                 );     
             details_div = $("<div>")
@@ -162,6 +162,12 @@ function search_device() {
     }, "json");
 }
 
+function show_all_devices() {
+    $.post("data_query.php", {type: "get_all_devices"}, function (data) {
+        show_search_results(data);
+    }, "json");
+}
+
 $(document).ready(function() {
     $.post("data_query.php", {type: "checklogin"}, function(data) {
         if (data != '0') {
@@ -170,8 +176,11 @@ $(document).ready(function() {
     });
     $("#search_button").click(function() {
         search_device();
-   });
-   $('#input_string').keyup(function(e) {
+    });
+    $("#show_all_button").click(function () {
+        show_all_devices();
+    });
+    $('#input_string').keyup(function(e) {
         if(e.keyCode == 13) {
             search_device();
         }
