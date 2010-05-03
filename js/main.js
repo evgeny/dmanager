@@ -44,6 +44,7 @@ function show_search_results(data) {
             phone = (val.phone!="")?("tel.: " + val.phone):" ",
             email = (val.email!="")?("e-mail: " + val.email):" ",
             person = val.title + " " + val.first_name + " " + val.last_name;
+            //alert(description.offsetHeight());
             delete_icon = $('<input type="image" width="24" height="24" class="delete-device-icon">')
                 .attr("src", "img/delete.png")
                 .attr("id", id)
@@ -63,8 +64,7 @@ function show_search_results(data) {
                 .append("<b>Description: </b><br>")
                 .append(
                     $("<textarea class='device-description'>"+utf8_decode(description)+"</textarea>" )
-                        //.attr("rows", "6")
-                        //.attr("cols", "60")
+                        .attr("rows", "6")
                         .attr("readonly", "true")
                 );     
             details_div = $("<div>")

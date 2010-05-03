@@ -1,9 +1,9 @@
 <?php
 
 include("db.php");
-set_time_limit(0);
+//set_time_limit(0);
     
-ini_set('display_errors', true); 
+//ini_set('display_errors', true); 
 error_reporting(E_ALL);
 
 $type = $_POST['type'];
