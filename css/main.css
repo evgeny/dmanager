@@ -159,6 +159,10 @@ h3 {
     margin-right:10px;
 }
 
+#bd {
+    margin-bottom:20px;
+}
+
 /* css for add.php*/
 #persons {
     margin-top: 30px;
@@ -172,9 +176,8 @@ h3 {
     float:right;
 }
 
-#new-device-form {
-    margin-top: 10px;
-    float:left;
+#new-device-form p{
+    margin-top: 20px;
 }
 
 #title {

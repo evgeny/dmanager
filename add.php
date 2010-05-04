@@ -33,12 +33,12 @@
                         <h3>New Device</h3><br>                       
                         <form id="new-device-form">
                             <input type="hidden" id="device-id" value=<?php echo $_POST['id']?>></input>
-                            <p>Name:</p>
-                            <input type="text" name="device-name" class="requiered-input" value=<?php echo $_POST['name']?>></input>                        
-                            <p>Device description:</p>
-                            <textarea name="device-description" class="requiered-input" rows=6 cols=60><?php echo $_POST['description']?></textarea>                        
-                            <p>Device location:</p>
-                            <textarea name="device-location"  class="requiered-input" rows=3 cols=60><?php echo $_POST['location']?></textarea>  
+                            <p>Name:<br>
+                            <input type="text" name="device-name" class="requiered-input" value=<?php echo $_POST['name']?>></input></p>                        
+                            <p>Device description:<br>
+                            <textarea name="device-description" class="requiered-input" rows=6 cols=60><?php echo $_POST['description']?></textarea></p>                        
+                            <p>Device location:<br>
+                            <textarea name="device-location"  class="requiered-input" rows=3 cols=60><?php echo $_POST['location']?></textarea></p>  
                             <br>
                             <input type="button" value="Add" id="save-device-button"/>
                             <input type="button" value="Cancel" id="cancel-device-button"/>
