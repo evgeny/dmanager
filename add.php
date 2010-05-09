@@ -34,7 +34,7 @@
                         <form id="new-device-form">
                             <input type="hidden" id="device-id" value=<?php echo $_POST['id']?>></input>
                             <p>Name:<br>
-                            <input type="text" name="device-name" class="requiered-input" value=<?php echo $_POST['name']?>></input></p>                        
+                            <input type="text" name="device-name" class="requiered-input" value="<?php echo $_POST['name']?>"></input></p>                        
                             <p>Device description:<br>
                             <textarea name="device-description" class="requiered-input" rows=6 cols=60><?php echo $_POST['description']?></textarea></p>                        
                             <p>Device location:<br>
